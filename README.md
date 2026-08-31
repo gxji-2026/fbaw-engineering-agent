@@ -1,0 +1,228 @@
+# DSH FBAW Engineering Agent
+
+**Autonomous, tool-driven RF engineering agent for physics-constrained FBAW filter optimization, built on DeepSeek Harness (DSH) with deterministic Python verification.**
+
+> **v1.0 runtime-verified configuration:** DeepSeek V4-Flash (`deepseek-v4-flash`) through the official DeepSeek provider in DSH. The LLM plans and selects engineering tools; Python remains the numerical authority.
+
+## What this repository demonstrates
+
+This project is a real engineering-agent benchmark rather than a chat-only design assistant. An LLM planner runs through **DeepSeek Harness (DSH)**, chooses among native FBAW engineering tools, receives verified tool results, re-plans after constraint conflicts or rejected actions, and stops only when the deterministic Python RF core authorizes completion.
+
+The v1.0 benchmark verifies the complete chain:
+
+```text
+Engineering goal
+      |
+      v
+DeepSeek V4-Flash
+  LLM planner
+      |
+      v
+DeepSeek Harness (DSH)
+  autonomous agent loop
+      |
+      v
+Native FBAW engineering tools
+      |
+      v
+Persistent Python bridge
+      |
+      v
+Physics-constrained RF core
+      |
+      +--> simulation / optimization
+      +--> ACCEPT / REJECT
+      +--> rollback / verified state
+      |
+      v
+result returned to DSH / LLM
+      |
+      +--> re-plan as needed
+      |
+      v
+Python-authorized STOP
+```
+
+## Model and agent roles
+
+| Layer | Role | Authority |
+|---|---|---|
+| **DeepSeek V4-Flash** | LLM planner: interprets verified state and selects the next engineering tool/action | Planning only |
+| **DeepSeek Harness (DSH)** | Agent harness: runs the multi-step loop, exposes native tools, routes tool calls/results | Execution/orchestration |
+| **Native FBAW tools** | Structured engineering interface between the agent and RF implementation | Tool boundary |
+| **Persistent Python bridge** | Maintains the engineering session and verified design state | State transport |
+| **Python RF core** | RF simulation, constrained optimization, hard-goal evaluation, ACCEPT/REJECT, rollback | **Numerical authority** |
+| **`stop_if_satisfied`** | Requests closure after all hard goals are verified | STOP only when Python authorizes |
+
+**Important:** DSH is not the LLM. In the verified v1.0 launcher configuration, DSH uses `deepseek-official / deepseek-v4-flash`. DeepSeek V4-Pro is not used by this native DSH v1.0 benchmark. The earlier direct-API DeepSeek Engineering Agent V4.2.3 separately implements Flash-to-Pro escalation.
+
+## Runtime-verified model identity
+
+V4.3c adds an observability layer without changing the RF core or acceptance criteria. The launcher resolves and prints the configured DSH model before execution, and each native FBAW tool call records the model identity.
+
+Verified run:
+
+```text
+DSH MODEL IDENTITY
+  profile      = headless
+  provider     = deepseek-official
+  model        = deepseek-v4-flash
+  source       = DSH agent-default-model configuration
+```
+
+The actual agent trace includes model-attributed calls such as:
+
+```text
+model=deepseek-v4-flash | tool=inspect_verified_design
+model=deepseek-v4-flash | tool=optimize_ripple
+model=deepseek-v4-flash | tool=realistic_constraint_conflict_probe
+model=deepseek-v4-flash | tool=optimize_ripple
+model=deepseek-v4-flash | tool=stop_if_satisfied
+```
+
+This makes the evidence chain explicit: **DeepSeek V4-Flash -> DSH -> native FBAW tool -> Python RF core -> verified result -> next agent action -> Python-authorized STOP.**
+
+## Verified benchmark result
+
+Hard goals:
+
+| Metric | Goal | Verified final |
+|---|---:|---:|
+| Nominal passband ripple | <= 0.55 dB | **0.539940 dB** |
+| Q80/Cp40 ripple | <= 0.63 dB | **0.6181 dB** |
+| Q60/Cp60 ripple | <= 0.75 dB | **0.745393 dB** |
+| Worst far-stop rejection | >= 45 dB | **50.240 dB** |
+
+The verified run terminates with:
+
+```text
+model=deepseek-v4-flash | tool=stop_if_satisfied
+Python-authorized STOP received; closing persistent bridge.
+NATIVE_DSH_FBAW_OK
+provider=deepseek-official
+model=deepseek-v4-flash
+EXITCODE=0
+```
+
+## Benchmark tool sequence
+
+A representative successful V4.3c session contains:
+
+```text
+inspect_verified_design
+  -> optimize_ripple
+  -> realistic_constraint_conflict_probe
+  -> optimize_ripple
+  -> stop_if_satisfied
+```
+
+The sequence is chosen by the LLM planner from Python-verified state. Numerical acceptance is never delegated to the LLM.
+
+## Source vs. benchmark
+
+The repository separates the engineering implementation from its verification harness:
+
+- `agent/` contains the DSH-native FBAW implementation: native tools, persistent Python bridge, RF engineering core, and DSH patch.
+- `benchmark/v4_3c/` contains the runtime-model-verified launcher, evaluator, scoring script, and benchmark instructions.
+- `docs/` contains compact verification evidence suitable for review without running the benchmark.
+
+This separation makes the repository an engineering-agent implementation first, with the benchmark serving as reproducible evidence.
+
+## Repository layout
+
+```text
+dsh-fbaw-engineering-agent/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── agent/
+│   ├── fbaw_dsh_native_tools_v4_3c.ts
+│   ├── fbaw_dsh_native_bridge_v4_3c.py
+│   ├── fbaw_engineering_agent_3Rx4_V4_3c_autonomous_core.py
+│   └── fbaw_native_v4_3c.patch.yml
+├── benchmark/
+│   └── v4_3c/
+│       ├── run_v4_3c_autonomous_benchmark.bat
+│       ├── detect_dsh_model_v4_3c.py
+│       ├── evaluate_v4_3c_autonomous_benchmark.py
+│       ├── score_agent.bat
+│       └── README_V4_3c_AUTONOMOUS_BENCHMARK.txt
+└── docs/
+    ├── TECHNICAL_BACKGROUND.md
+    └── V4_3c_VERIFIED_TRANSCRIPT.md
+```
+
+## Run on Windows
+
+The current benchmark reflects the verified local setup and expects DSH plus Python to be installed. Copy the V4.3c benchmark files to the DSH working directory (the verified launcher uses `D:\AI_Research\dsh-run`) and run:
+
+```bat
+run_v4_3c_autonomous_benchmark.bat
+```
+
+Then score the generated session summary:
+
+```bat
+benchmark\v4_3c\score_agent.bat
+```
+
+A successful run should end with `NATIVE_DSH_FBAW_OK` and `EXITCODE=0`.
+
+## Design principle
+
+The central safety/engineering rule is separation of authority:
+
+- **LLM:** planning and engineering action selection.
+- **DSH:** agent orchestration and native tool execution.
+- **Python:** deterministic RF truth, state, constraints, rollback, and STOP authorization.
+
+This prevents the LLM from inventing S-parameters, component values, margins, or completion status.
+
+## Engineering Agent Series
+
+This repository is the **flagship DSH-native implementation** in a three-agent portfolio:
+
+1. **`dsh-fbaw-engineering-agent`** — DSH-native autonomous agent; DeepSeek V4-Flash planner; deterministic Python RF authority.
+2. **`deepseek-fbaw-engineering-agent`** — direct DeepSeek API reference implementation with V4-Flash -> V4-Pro escalation.
+3. **`cohere-fbaw-engineering-agent`** — Cohere-based cross-provider reference implementation.
+
+The series is intended to separate the reusable engineering-agent architecture from any single model provider.
+
+## Version
+
+**v1.0** — runtime-model-verified DSH FBAW Engineering Agent, incorporating the V4.3c benchmark evidence layer.
+
+## Technical Background
+
+This engineering agent builds on two stages of prior FBAW research.
+
+1. **SFR-based transmission-zero synthesis and DFR realization**
+
+   X. Ji and R. Zhu, "SFR-Based Transmission Zero Synthesis and DFR Realization of Wideband FBAW Filters for 6G FR3 (6.425–7.125 GHz)," 2026.
+
+   This work establishes the RF-physics foundation: embedded-impedance transmission-zero synthesis, extraction of lower and upper spectral targets, and transmission-zero-to-resonator mapping for DFR realization.
+
+2. **AI-assisted physics-constrained closed-loop optimization**
+
+   X. Ji and R. Zhu, "AI-Assisted Physics-Constrained Closed-Loop Optimization of Robust DFR-Based Wideband FBAW Filters for 6G FR3," 2026.
+
+   This work extends the physical synthesis methodology with an LLM-assisted Python optimization layer, multi-condition robustness evaluation, and ADS-calibrated numerical verification.
+
+The present repository extends this progression from AI-assisted design-program development to an autonomous tool-using engineering-agent architecture:
+
+```text
+SFR/DFR physics
+    -> deterministic Python closed-loop optimization
+    -> DSH + DeepSeek V4-Flash autonomous engineering agent
+    -> native engineering tools
+    -> Python-verified design state
+```
+
+See [`docs/TECHNICAL_BACKGROUND.md`](docs/TECHNICAL_BACKGROUND.md) for the relationship between the two background studies and this repository.
+
+## Author
+
+**George X. Ji, Ph.D.**  
+Principal Engineer, IWA Systems Inc.
+
+Research and engineering interests include RF/microwave filter design, FBAW/DFR technologies, physics-constrained optimization, and LLM-based autonomous engineering agents.
