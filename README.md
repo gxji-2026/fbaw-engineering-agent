@@ -1,6 +1,8 @@
-# DSH FBAW Engineering Agent
+# FBAW Engineering Agent
 
-**Autonomous, tool-driven RF engineering agent for physics-constrained FBAW filter optimization, built on DeepSeek Harness (DSH) with deterministic Python verification.**
+**Provider-independent, physics-constrained FBAW engineering-agent framework with a flagship DSH-native implementation and direct-API reference implementations for DeepSeek and Cohere.**
+
+The **DSH-native FBAW Engineering Agent** remains the primary/reference implementation. DeepSeek and Cohere implementations are included as provider/runtime references for the same engineering-agent pattern.
 
 > **v1.0 runtime-verified configuration:** DeepSeek V4-Flash (`deepseek-v4-flash`) through the official DeepSeek provider in DSH. The LLM plans and selects engineering tools; Python remains the numerical authority.
 
@@ -122,9 +124,11 @@ The sequence is chosen by the LLM planner from Python-verified state. Numerical 
 
 The repository separates the engineering implementation from its verification harness:
 
-- `agent/` contains the DSH-native FBAW implementation: native tools, persistent Python bridge, RF engineering core, and DSH patch.
-- `benchmark/v4_3c/` contains the runtime-model-verified launcher, evaluator, scoring script, and benchmark instructions.
-- `docs/` contains compact verification evidence suitable for review without running the benchmark.
+- `agent/` contains the flagship DSH-native FBAW implementation: native tools, persistent Python bridge, RF engineering core, and DSH patch.
+- `providers/deepseek/` contains the direct-API DeepSeek serial baseline and parallel reference implementation.
+- `providers/cohere/` contains the Cohere serial baseline and parallel cross-provider reference implementation.
+- `benchmark/v4_3c/` contains the runtime-model-verified DSH launcher, evaluator, scoring script, and benchmark instructions.
+- `docs/` contains compact verification evidence plus the provider/runtime comparison.
 
 This separation makes the repository an engineering-agent implementation first, with the benchmark serving as reproducible evidence.
 
@@ -140,16 +144,19 @@ dsh-fbaw-engineering-agent/
 │   ├── fbaw_dsh_native_bridge_v4_3c.py
 │   ├── fbaw_engineering_agent_3Rx4_V4_3c_autonomous_core.py
 │   └── fbaw_native_v4_3c.patch.yml
+├── providers/
+│   ├── deepseek/
+│   │   ├── deepseek_fbaw_agent_serial.py
+│   │   └── deepseek_fbaw_agent_parallel.py
+│   └── cohere/
+│       ├── cohere_fbaw_agent_serial.py
+│       └── cohere_fbaw_agent_parallel.py
 ├── benchmark/
 │   └── v4_3c/
-│       ├── run_v4_3c_autonomous_benchmark.bat
-│       ├── detect_dsh_model_v4_3c.py
-│       ├── evaluate_v4_3c_autonomous_benchmark.py
-│       ├── score_agent.bat
-│       └── README_V4_3c_AUTONOMOUS_BENCHMARK.txt
 └── docs/
     ├── TECHNICAL_BACKGROUND.md
-    └── V4_3c_VERIFIED_TRANSCRIPT.md
+    ├── V4_3c_VERIFIED_TRANSCRIPT.md
+    └── provider_comparison.md
 ```
 
 ## Run on Windows
@@ -178,19 +185,47 @@ The central safety/engineering rule is separation of authority:
 
 This prevents the LLM from inventing S-parameters, component values, margins, or completion status.
 
-## Engineering Agent Series
+## Implementation family
 
-This repository is the **flagship DSH-native implementation** in a three-agent portfolio:
+This repository presents **one FBAW engineering-agent framework through three runtime/provider implementations**:
 
-1. **`dsh-fbaw-engineering-agent`** — DSH-native autonomous agent; DeepSeek V4-Flash planner; deterministic Python RF authority.
-2. **`deepseek-fbaw-engineering-agent`** — direct DeepSeek API reference implementation with V4-Flash -> V4-Pro escalation.
-3. **`cohere-fbaw-engineering-agent`** — Cohere-based cross-provider reference implementation.
+| Implementation | Public role | Execution |
+|---|---|---|
+| **DSH-native FBAW Engineering Agent** | **Primary/reference implementation** | DSH native tools + persistent Python bridge |
+| **DeepSeek FBAW Engineering Agent — Parallel** | Direct-API reference | Parallel local RF candidate verification |
+| **Cohere FBAW Engineering Agent — Parallel** | Cross-provider reference | Parallel local RF candidate verification |
+| DeepSeek FBAW Engineering Agent — Serial | Baseline/reference | Serial |
+| Cohere FBAW Engineering Agent — Serial | Baseline/reference | Serial |
 
-The series is intended to separate the reusable engineering-agent architecture from any single model provider.
+The public distinction is **runtime/provider + execution mode**, not the internal development revision number. `V4.3c`, `V4.3-P3`, `V4.1`, and `V4.1-P3` remain development-lineage identifiers.
+
+The DeepSeek and Cohere parallel variants parallelize independent **Python RF candidate verification**, not LLM/API calls. Engineering ranking and acceptance remain Python-controlled.
+
+### Cohere parallel cold-run benchmark
+
+Validated with six local workers:
+
+```text
+elapsed_s   = 248.29
+elapsed_min = 4.138
+workers     = 6
+```
+
+The parallel run reproduced the verified checkpoint:
+
+| Scenario | Ripple | Far-stop rejection |
+|---|---:|---:|
+| Nominal | **0.539940 dB** | 51.177 / 55.633 dB |
+| Q80/Cp40 | **0.618137 dB** | 50.583 / 56.093 dB |
+| Q60/Cp60 | **0.745393 dB** | 50.240 / 56.311 dB |
+
+Transmission-zero locations remained approximately **6.2221 / 7.3995 GHz**.
+
+See [`docs/provider_comparison.md`](docs/provider_comparison.md) for the implementation map and versioning policy.
 
 ## Version
 
-**v1.0** — runtime-model-verified DSH FBAW Engineering Agent, incorporating the V4.3c benchmark evidence layer.
+**v1.1** — provider/runtime organization update. The runtime-verified V4.3c DSH-native benchmark remains the flagship reference, with DeepSeek and Cohere serial/parallel reference implementations added under `providers/`.
 
 ## Technical Background
 
