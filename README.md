@@ -4,6 +4,14 @@
 
 The **DSH-native FBAW Engineering Agent** remains the primary/reference implementation. DeepSeek and Cohere implementations are included as provider/runtime references for the same engineering-agent pattern.
 
+## Architecture at a glance
+
+![FBAW Engineering Agent Architecture Comparison](docs/images/fbaw_agent_architecture_comparison.png)
+
+**One engineering-agent pattern, three runtime/provider implementations, with Python retaining RF numerical authority.**
+
+> **Parallel cold-run benchmark (6 workers):** DeepSeek ≈10 min → **4.18 min (~2.4×)**; Cohere ≈10 min → **4.14 min (~2.4×)**.
+
 > **v1.0 runtime-verified configuration:** DeepSeek V4-Flash (`deepseek-v4-flash`) through the official DeepSeek provider in DSH. The LLM plans and selects engineering tools; Python remains the numerical authority.
 
 ## What this repository demonstrates
