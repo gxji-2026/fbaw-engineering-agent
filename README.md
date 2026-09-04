@@ -143,7 +143,7 @@ This separation makes the repository an engineering-agent implementation first, 
 ## Repository layout
 
 ```text
-dsh-fbaw-engineering-agent/
+fbaw-engineering-agent/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
