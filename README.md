@@ -1,14 +1,20 @@
-# FBAW Engineering Agent
+# Domain-Specific Agentic AI for RF/FBAW Engineering
 
-**Provider-independent, physics-constrained FBAW engineering-agent framework with a flagship DSH-native implementation and direct-API reference implementations for DeepSeek and Cohere.**
+**A provider-independent, physics-constrained Agentic AI system for RF/FBAW engineering, implemented through DSH-native, DeepSeek direct-API, and Cohere cross-provider reference agents.**
 
-The **DSH-native FBAW Engineering Agent** remains the primary/reference implementation. DeepSeek and Cohere implementations are included as provider/runtime references for the same engineering-agent pattern.
+This repository demonstrates a **domain-specific Agentic AI architecture** in which LLMs perform engineering reasoning, planning, and tool selection, while a deterministic Python RF core retains numerical verification, state-transition, rollback, and final STOP authority.
+
+All three implementations operate through the same fundamental **agentic engineering loop**:
+
+> **Goal → LLM Planning → Tool Execution → Python RF Verification → Accept / Reject / Rollback → Re-plan → Python-authorized STOP**
+
+The **DSH-native FBAW Engineering Agent** remains the primary/reference implementation. The DeepSeek direct-API and Cohere cross-provider agents provide reference implementations of the same physics-constrained Agentic AI architecture.
 
 ## Architecture at a glance
 
-![FBAW Engineering Agent Architecture Comparison](docs/images/fbaw_agent_architecture_comparison.png)
+![Domain-Specific Agentic AI for RF/FBAW Engineering](docs/images/Domain-Specific_Agentic-AI_fbaw_agent_architecture.png)
 
-**One engineering-agent pattern, three runtime/provider implementations, with Python retaining RF numerical authority.**
+**One domain-specific Agentic AI architecture, three runtime/provider implementations, with Python retaining RF numerical and state-transition authority.**
 
 > **Parallel cold-run benchmark (6 workers):** DeepSeek ≈10 min → **4.18 min (~2.4×)**; Cohere ≈10 min → **4.14 min (~2.4×)**.
 
@@ -16,15 +22,15 @@ The **DSH-native FBAW Engineering Agent** remains the primary/reference implemen
 
 ## What this repository demonstrates
 
-This repository demonstrates a **provider-independent FBAW engineering-agent pattern** implemented through three runtime/provider paths:
+This repository demonstrates a **provider-independent, domain-specific Agentic AI system for RF/FBAW engineering** implemented through three runtime/provider paths:
 
-- **DSH-native FBAW Engineering Agent** — the primary/reference implementation
-- **DeepSeek FBAW Engineering Agent** — a direct-API reference implementation
-- **Cohere FBAW Engineering Agent** — a cross-provider reference implementation
+- **DSH-native FBAW Engineering Agent** — the **primary/reference Agentic AI implementation**
+- **DeepSeek FBAW Engineering Agent** — a **direct-API reference implementation**
+- **Cohere FBAW Engineering Agent** — a **cross-provider reference implementation**
 
 Across all three implementations, the central engineering principle is the same:
 
-> **The LLM plans and selects engineering actions; deterministic Python tools establish numerical truth and retain final acceptance authority.**
+> **The LLM proposes and plans engineering actions; deterministic Python tools evaluate physical results and authorize engineering state transitions and termination.**
 
 The implementations differ in their agent runtime, provider interface, state handling, and execution architecture, while sharing the same physics-constrained FBAW engineering core and verification philosophy.
 
@@ -209,15 +215,15 @@ The central safety/engineering rule is separation of authority:
 
 This prevents the LLM from inventing S-parameters, component values, margins, or completion status.
 
-## Implementation family
+## Agentic AI implementation family
 
-This repository presents **one FBAW engineering-agent framework through three runtime/provider implementations**:
+This repository presents **one domain-specific Agentic AI architecture through three runtime/provider implementations**. All three execute the same fundamental closed loop: **Goal → LLM Planning → Tool Execution → Python RF Verification → Accept / Reject / Rollback → Re-plan → Python-authorized STOP**.
 
 | Implementation | Public role | Execution |
 |---|---|---|
-| **DSH-native FBAW Engineering Agent** | **Primary/reference implementation** | DSH native tools + persistent Python bridge |
-| **DeepSeek FBAW Engineering Agent — Parallel** | Direct-API reference | Parallel local RF candidate verification |
-| **Cohere FBAW Engineering Agent — Parallel** | Cross-provider reference | Parallel local RF candidate verification |
+| **DSH-native FBAW Engineering Agent** | **Primary/reference Agentic AI implementation** | DSH native tools + persistent Python bridge |
+| **DeepSeek FBAW Engineering Agent — Parallel** | **Direct-API reference implementation** | Parallel local RF candidate verification |
+| **Cohere FBAW Engineering Agent — Parallel** | **Cross-provider reference implementation** | Parallel local RF candidate verification |
 | DeepSeek FBAW Engineering Agent — Serial | Baseline/reference | Serial |
 | Cohere FBAW Engineering Agent — Serial | Baseline/reference | Serial |
 
@@ -267,14 +273,18 @@ This engineering agent builds on two stages of prior FBAW research.
 
    This work extends the physical synthesis methodology with an LLM-assisted Python optimization layer, multi-condition robustness evaluation, and ADS-calibrated numerical verification.
 
-The present repository extends this progression from AI-assisted design-program development to an autonomous tool-using engineering-agent architecture:
+The present repository extends this progression from AI-assisted design-program development to a **domain-specific Agentic AI system** with autonomous tool use, deterministic RF verification, rollback/recovery, re-planning, and Python-authorized termination:
 
 ```text
-SFR/DFR physics
+SFR/DFR RF physics
     -> deterministic Python closed-loop optimization
-    -> DSH + DeepSeek V4-Flash autonomous engineering agent
-    -> native engineering tools
-    -> Python-verified design state
+    -> LLM reasoning and engineering planning
+    -> tool-using autonomous engineering agent
+    -> physics-constrained agentic control loop
+    -> Domain-Specific Agentic AI System
+         |-- DSH-native primary/reference implementation
+         |-- DeepSeek direct-API reference implementation
+         `-- Cohere cross-provider reference implementation
 ```
 
 See [`docs/TECHNICAL_BACKGROUND.md`](docs/TECHNICAL_BACKGROUND.md) for the relationship between the two background studies and this repository.
@@ -284,4 +294,4 @@ See [`docs/TECHNICAL_BACKGROUND.md`](docs/TECHNICAL_BACKGROUND.md) for the relat
 **George X. Ji, Ph.D.**  
 Principal Engineer, IWA Systems Inc.
 
-Research and engineering interests include RF/microwave filter design, FBAW/DFR technologies, physics-constrained optimization, and LLM-based autonomous engineering agents.
+Research and engineering interests include RF/microwave filter design, FBAW/DFR technologies, physics-constrained optimization, domain-specific Agentic AI, and LLM/agent harness engineering.
