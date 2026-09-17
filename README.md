@@ -10,6 +10,47 @@ All three implementations operate through the same fundamental **agentic enginee
 
 The **DSH-native FBAW Engineering Agent** remains the primary/reference implementation. The DeepSeek direct-API and Cohere cross-provider agents provide reference implementations of the same physics-constrained Agentic AI architecture.
 
+
+# 🔬 Latest Research
+
+## Blind Structural Synthesis of 3Rx6 and 3Rx8
+
+We extended the original FBAW Engineering Agent into a **blind structural-synthesis study** using **OpenAI, DeepSeek, and Cohere** as planning engines above the same deterministic RF verification framework.
+
+**3Rx2 → 3Rx4 → Blind 3Rx6 → Blind 3Rx8**
+
+| Stage | Result |
+|---|---|
+| **3Rx6 — selected Cohere trajectory** | ~0.93 dB robust ripple / ~76.4 dB far rejection |
+| **3Rx8 — selected OpenAI trajectory** | ~1.33 dB robust ripple / ~102 dB far rejection |
+
+The experiments also produced clear examples of **result-dependent LLM engineering reasoning**. In particular, DeepSeek changed engineering direction after observing unsuccessful verified RF responses rather than following a fixed parameter-search script.
+
+> **LLM reasons about what to try next. Python determines whether it actually worked.**
+
+### RF response evolution
+
+| 3Rx2 | 3Rx4 |
+|---|---|
+| ![3Rx2 nominal](docs/images/filter-family/3Rx2_nominal.png) | ![3Rx4 nominal](docs/images/filter-family/3Rx4_nominal.png) |
+
+| 3Rx6 — Cohere | 3Rx8 — OpenAI |
+|---|---|
+| ![3Rx6 nominal](docs/images/filter-family/3Rx6_nominal.png) | ![3Rx8 nominal](docs/images/filter-family/3Rx8_nominal.png) |
+
+**[Read the full technical case study →](docs/BLIND_STRUCTURAL_SYNTHESIS_3RX6_3RX8.md)**
+
+**Next phase:** 3Rx8 higher-order redesign targeting **far rejection >80 dB**, **robust worst-case ripple ≤1.0 dB**, and **required bandwidth**.
+
+The new blind 3Rx6/3Rx8 source code, complete circuit parameters, internal prompts, and proprietary engineering implementation are not publicly released. Earlier public reference implementations in this repository are retained as part of the project history.
+
+
+---
+
+# Original Engineering-Agent Platform
+
+> The sections below document the original public Engineering Agent architecture, reference implementations, benchmark workflow, and project history retained in this repository.
+
 ## Architecture at a glance
 
 ![Domain-Specific Agentic AI for RF/FBAW Engineering](docs/images/Domain-Specific_Agentic-AI_fbaw_agent_architecture.png)
