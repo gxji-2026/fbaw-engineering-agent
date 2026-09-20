@@ -4,6 +4,8 @@
 
 This repository demonstrates a **domain-specific Agentic AI architecture** in which LLMs perform engineering reasoning, planning, and tool selection, while a deterministic Python RF core retains numerical verification, state-transition, rollback, and final STOP authority.
 
+The project uses an **engineering-embedded evaluation** approach: the evaluated LLM operates inside a real, tool-using engineering workflow and is judged through deterministic simulation and verified RF outcomes. This is distinct from an **embedded evaluator** arrangement in which independent evaluators work inside an AI company. Here, the LLM is embedded in the engineering system; independent audit and reproduction are separate mechanisms for establishing experimental credibility.
+
 All three implementations operate through the same fundamental **agentic engineering loop**:
 
 > **Goal → LLM Planning → Tool Execution → Python RF Verification → Accept / Reject / Rollback → Re-plan → Python-authorized STOP**
@@ -41,6 +43,28 @@ The experiments also produced clear examples of **result-dependent LLM engineeri
 **[Read the full technical case study →](docs/BLIND_STRUCTURAL_SYNTHESIS_3RX6_3RX8.md)**
 
 **Next phase:** 3Rx8 higher-order redesign targeting **far rejection >80 dB**, **robust worst-case ripple ≤1.0 dB**, and **required bandwidth**.
+
+## Long-Term Multi-LLM Autonomous Engineering Benchmark
+
+Building on the completed OpenAI, DeepSeek, and Cohere experiments, the project is expanding from individual comparative studies into a structured, long-term benchmark program.
+
+The program has two primary purposes:
+
+1. **Identify the LLM best suited to our engineering work** through fair, reproducible, result-dependent testing.
+2. **Provide objective engineering feedback to LLM developers** on long-horizon planning, structured tool use, failure recovery, resource allocation, and autonomous problem-solving.
+
+The benchmark will progressively evaluate autonomous cell-by-cell decisions, local-to-global strategy transitions, multi-objective robustness, Pareto selection, controlled failure recovery, limited computation budgets, hidden-history blind synthesis, topology and embedding re-synthesis, and cross-domain engineering transfer.
+
+Benchmark results will distinguish:
+
+- **Nominal Performance** — nominal passband ripple under the baseline circuit condition.
+- **Robust Composite Performance** — separately reported nominal, Q80/Cp40, and Q60/Cp60 ripple, with any composite ranking formula explicitly declared.
+- **Autonomous Engineering Behavior** — planning quality, result-dependent replanning, rollback, failure recovery, budget use, and STOP-decision quality.
+- **Evaluation Integrity** — versioned run manifests, trace completeness, human-intervention disclosure, hidden-history protection, and independent reproduction where feasible.
+
+Numerical truth remains the responsibility of the deterministic Python RF core. Independent reproduction audits the credibility of the experiment; it does not replace deterministic RF verification.
+
+**[Read the long-term benchmark roadmap →](FBAW_LLM_Benchmark_Long_Term_Roadmap.md)**
 
 The new blind 3Rx6/3Rx8 source code, complete circuit parameters, internal prompts, and proprietary engineering implementation are not publicly released. Earlier public reference implementations in this repository are retained as part of the project history.
 
@@ -208,6 +232,7 @@ This separation makes the repository an engineering-agent implementation first, 
 ```text
 fbaw-engineering-agent/
 ├── README.md
+├── FBAW_LLM_Benchmark_Long_Term_Roadmap.md
 ├── LICENSE
 ├── .gitignore
 ├── agent/
@@ -296,7 +321,7 @@ See [`docs/provider_comparison.md`](docs/provider_comparison.md) for the impleme
 
 ## Version
 
-**v1.1** — provider/runtime organization update. The runtime-verified V4.3c DSH-native benchmark remains the flagship reference, with DeepSeek and Cohere serial/parallel reference implementations added under `providers/`.
+**v1.1** — provider/runtime organization update. The runtime-verified V4.3c DSH-native benchmark remains the flagship reference, with DeepSeek and Cohere serial/parallel reference implementations under `providers/`. The repository now also documents the planned transition from individual multi-LLM studies to a long-term autonomous-engineering benchmark program.
 
 ## Technical Background
 
