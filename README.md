@@ -228,9 +228,9 @@ verified evolution. V1.5 tests Golden-informed improvement from a common
 near-Golden starting point.**
 
 **[Read the complete V1.4 Multi-LLM Persistent Verified Evolution report
-→](V1_4_Multi_LLM_Persistent_Verified_Evolution.md)**
+→](V1_4_GitHub_Publication_Package/V1_4_Multi_LLM_Persistent_Verified_Evolution.md)**
 
-The V1.4 publication package also includes the closest-to-Golden result
+The V1.4 publication folder also includes the closest-to-Golden result
 figure and four **Verified Engineering Evolution** videos for Cohere,
 DeepSeek, xAI Grok, and Claude. The videos visualize observable
 engineering actions and verified outcomes; they are not hidden
@@ -473,13 +473,14 @@ fbaw-engineering-agent/
 ├── README.md
 ├── FBAW_LLM_Benchmark_Long_Term_Roadmap.md
 ├── V1_3_Multi_LLM_Autonomous_Engineering_Benchmark_GitHub.md
-├── V1_4_Multi_LLM_Persistent_Verified_Evolution.md
-├── V1_4_Closest_Verified_to_Golden_LARGE_FONT.png
-├── videos/
-│   ├── Cohere_V1_4_Verified_Engineering_Evolution.mp4
-│   ├── DeepSeek_V1_4_Verified_Engineering_Evolution.mp4
-│   ├── xAI_Grok_V1_4_Verified_Engineering_Evolution.mp4
-│   └── Claude_V1_4_Verified_Engineering_Evolution.mp4
+├── V1_4_GitHub_Publication_Package/
+│   ├── V1_4_Multi_LLM_Persistent_Verified_Evolution.md
+│   ├── V1_4_Closest_Verified_to_Golden_LARGE_FONT.png
+│   └── videos/
+│       ├── Cohere_V1_4_Verified_Engineering_Evolution.mp4
+│       ├── DeepSeek_V1_4_Verified_Engineering_Evolution.mp4
+│       ├── xAI_Grok_V1_4_Verified_Engineering_Evolution.mp4
+│       └── Claude_V1_4_Verified_Engineering_Evolution.mp4
 ├── LICENSE
 ├── .gitignore
 ├── agent/
