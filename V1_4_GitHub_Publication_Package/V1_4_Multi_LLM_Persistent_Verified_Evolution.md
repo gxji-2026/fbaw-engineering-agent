@@ -132,10 +132,21 @@ They are **not** visualizations of hidden chain-of-thought. Numerical
 performance remains determined exclusively by the deterministic Python
 verifier.
 
-- [DeepSeek — V1.4 Verified Engineering Evolution](videos/DeepSeek_V1_4_Verified_Engineering_Evolution.mp4)
-- [Cohere — V1.4 Verified Engineering Evolution](videos/Cohere_V1_4_Verified_Engineering_Evolution.mp4)
-- [xAI Grok — V1.4 Verified Engineering Evolution](videos/xAI_Grok_V1_4_Verified_Engineering_Evolution.mp4)
-- [Claude — V1.4 Verified Engineering Evolution](videos/Claude_V1_4_Verified_Engineering_Evolution.mp4)
+### DeepSeek
+
+[![DeepSeek — V1.4 Verified Engineering Evolution](images/DeepSeek_V1_4_Video_Thumbnail.png)](videos/DeepSeek_V1_4_Verified_Engineering_Evolution.mp4)
+
+### Cohere
+
+[![Cohere — V1.4 Verified Engineering Evolution](images/Cohere_V1_4_Video_Thumbnail.png)](videos/Cohere_V1_4_Verified_Engineering_Evolution.mp4)
+
+### xAI Grok
+
+[![xAI Grok — V1.4 Verified Engineering Evolution](images/xAI_Grok_V1_4_Video_Thumbnail.png)](videos/xAI_Grok_V1_4_Verified_Engineering_Evolution.mp4)
+
+### Claude
+
+[![Claude — V1.4 Verified Engineering Evolution](images/Claude_V1_4_Video_Thumbnail.png)](videos/Claude_V1_4_Verified_Engineering_Evolution.mp4)
 
 The videos are supporting visual records of the experiment; the verified
 numerical results and benchmark contract remain the primary evidence.
