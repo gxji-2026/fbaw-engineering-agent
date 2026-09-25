@@ -183,26 +183,58 @@ planning, and mandatory belief updates after deterministic verification.
 **[Read the complete V1.3 Multi-LLM Autonomous Engineering Benchmark
 →](V1_3_Multi_LLM_Autonomous_Engineering_Benchmark_GitHub.md)**
 
-### In progress --- V1.4 Persistent Engineering Benchmark
+### V1.4 --- Multi-LLM Persistent Verified Evolution
 
-V1.3 uses **independent runs with fresh context**. V1.4 asks whether
-persistent engineering experience changes the outcome.
+V1.4 extends V1.3 from independent fresh-context runs into a
+**long-horizon persistent engineering experiment**.
 
-The V1.4 objective is to investigate whether an LLM can **retain
-verified engineering experience, preserve useful states, learn from
-unsuccessful actions, and progressively improve the same design over a
-longer engineering trajectory**.
+Four LLMs — **Cohere, xAI, DeepSeek, and Claude** — were evaluated over
+the same **30-decision horizon** inside the deterministic engineering
+loop. The **Golden 4Rx5 reference was hidden during evolution** and was
+revealed only after the runs for post-run comparison.
 
-The target is to determine whether:
+The study asks whether an LLM can accumulate verified engineering
+progress, preserve successful checkpoints, recover from unsuccessful
+actions, reuse prior experience, explore Pareto alternatives, and
+improve persistently across a long sequence of engineering decisions.
 
-> **Persistent engineering reasoning + accumulated deterministic
-> feedback**
+The central observation is:
 
-can drive performance **toward --- and ideally beyond --- the defined
-PASS thresholds**.
+> **Persistent memory is necessary for long-horizon autonomous
+> engineering, but it is not sufficient. The more demanding capability
+> is converting accumulated verified experience into better future
+> engineering decisions.**
 
-**V1.3 tests repeated independent engineering. V1.4 tests whether an LLM
-can actually learn from engineering experience.**
+After the Golden reference was unblinded, preserved verified solutions
+were compared with it rather than simply using each model's final
+Decision #30 endpoint. **DeepSeek CP21** was selected as the closest
+verified V1.4 transition point:
+
+- **Nominal ripple:** 0.591294 dB
+- **Q80/Cp40 ripple:** 0.609387 dB
+- **Q60/Cp60 ripple:** 0.913809 dB
+
+The corresponding Golden ripple values are **0.598967 / 0.684248 /
+0.915071 dB**. CP21 satisfied the V1.4 engineering feasibility guards
+but did not match every stricter Golden bandwidth/rejection metric, so
+it was not a full Golden PASS.
+
+This verified CP21 design becomes the **common starting point for V1.5**,
+where the Golden reference is disclosed and all evaluated LLMs face the
+same strict nine-metric **BEAT_GOLDEN** challenge.
+
+**V1.3 tests repeated independent engineering. V1.4 tests persistent
+verified evolution. V1.5 tests Golden-informed improvement from a common
+near-Golden starting point.**
+
+**[Read the complete V1.4 Multi-LLM Persistent Verified Evolution report
+→](V1_4_Multi_LLM_Persistent_Verified_Evolution.md)**
+
+The V1.4 publication package also includes the closest-to-Golden result
+figure and four **Verified Engineering Evolution** videos for Cohere,
+DeepSeek, xAI Grok, and Claude. The videos visualize observable
+engineering actions and verified outcomes; they are not hidden
+chain-of-thought traces.
 
 The new blind 3Rx6/3Rx8 source code, complete circuit parameters,
 internal prompts, and proprietary engineering implementation are not
@@ -441,6 +473,13 @@ fbaw-engineering-agent/
 ├── README.md
 ├── FBAW_LLM_Benchmark_Long_Term_Roadmap.md
 ├── V1_3_Multi_LLM_Autonomous_Engineering_Benchmark_GitHub.md
+├── V1_4_Multi_LLM_Persistent_Verified_Evolution.md
+├── V1_4_Closest_Verified_to_Golden_LARGE_FONT.png
+├── videos/
+│   ├── Cohere_V1_4_Verified_Engineering_Evolution.mp4
+│   ├── DeepSeek_V1_4_Verified_Engineering_Evolution.mp4
+│   ├── xAI_Grok_V1_4_Verified_Engineering_Evolution.mp4
+│   └── Claude_V1_4_Verified_Engineering_Evolution.mp4
 ├── LICENSE
 ├── .gitignore
 ├── agent/
@@ -562,9 +601,10 @@ implementation map and versioning policy.
 **v1.1** --- provider/runtime organization update. The runtime-verified
 V4.3c DSH-native benchmark remains the flagship reference, with DeepSeek
 and Cohere serial/parallel reference implementations under `providers/`.
-The repository now also documents the planned transition from individual
-multi-LLM studies to a long-term autonomous-engineering benchmark
-program.
+The repository now also documents the long-term Multi-LLM Autonomous
+Engineering Benchmark through **V1.3 independent repeated engineering**
+and **V1.4 Golden-hidden Persistent Verified Evolution**, with V1.4
+providing the verified transition point used to initialize V1.5.
 
 ## Technical Background
 
